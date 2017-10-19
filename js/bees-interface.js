@@ -4,11 +4,11 @@ const Snoowrap = require('snoowrap');
 const Snoostorm = require('snoostorm');
 const apiKey = require('./../.env').apiKey;
 
-$(document).ready(function(){
-  let timer = setTimeout(function(){
-    alert("test");
-  }, 3000);
+let BEEFACTS = ['The queen may lay 600-800 or even 1,500 eggs each day during her 3 or 4 year lifetime. This daily egg production may equal her own weight. She is constantly fed and groomed by attendant worker bees.', 'Honeybees fly at 15 miles per hour.', 'Honeybees have five eyes, 3 small ones on top of the head and two big ones in front.  They also have hair on their eyes!', 'Honeybees will usually travel approximately 3 miles from their hive.', 'A populous colony may contain 40,000 to 60,000 bees during the late spring or early summer.'];
 
+let count = 0;
+
+$(document).ready(function(){
 
   const r = new Snoowrap({
     userAgent: 'bee-facts-bot',
@@ -24,16 +24,25 @@ $(document).ready(function(){
     subreddit: 'all',
     results: 25
   };
-  const comments = client.CommentStream(streamOpts);
 
+  const comments = client.CommentStream(streamOpts);
 
   comments.on('comment', (comment) => {
 
-      console.log(comment);
+    console.log(comment);
 
+    let noPunBody = comment.body.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
 
+    noPunBody.split(' ').forEach(function(word){
+      if((word === 'bee')|| (word ==='bees')){
 
-      let noPunBody = comment.body.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
-      $('#posts').append(`<div class='card bg-light mb-3'><div class='card-body'><p>Comment: ${noPunBody}<br>${comment.link_permalink}</p></div></div>`);
+        comment.reply(`${BEEFACTS[count]}`);
+        count ++;
+        if(count === 4){
+          count = 0;
+        }
+        $('#posts').append(`<div class='card bg-light mb-3'><div class='card-body'><p>Comment: ${comment.body}<br>${comment.link_permalink}</p></div></div>`);
+      }
+    });
   });
 });
