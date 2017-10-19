@@ -31,18 +31,15 @@ $(document).ready(function(){
 
     console.log(comment);
 
-    let noPunBody = comment.body.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+    let noPunBody = comment.body.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g," ");
 
-    noPunBody.split(' ').forEach(function(word){
-      if((word === 'bee')|| (word ==='bees')){
-
-        comment.reply(`${BEEFACTS[count]}`);
-        count ++;
-        if(count === 4){
-          count = 0;
-        }
-        $('#posts').append(`<div class='card bg-light mb-3'><div class='card-body'><p>Comment: ${comment.body}<br>${comment.link_permalink}</p></div></div>`);
+    if(noPunBody.includes(' bee ')){
+      comment.reply(`${BEEFACTS[count]}`);
+      count ++;
+      if(count === 4){
+        count = 0;
       }
-    });
+      $('#posts').append(`<div class='card bg-light mb-3'><div class='card-body'><p>Comment: ${comment.body}<br>${comment.link_permalink}<br>replied with: ${BEEFACTS[count]}</p></div></div>`);
+    }
   });
 });
