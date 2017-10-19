@@ -6,7 +6,7 @@ const apiKey = require('./../.env').apiKey;
 
 let BEEFACTS = ['The queen may lay 600-800 or even 1,500 eggs each day during her 3 or 4 year lifetime. This daily egg production may equal her own weight. She is constantly fed and groomed by attendant worker bees.', 'Honeybees fly at 15 miles per hour.', 'Honeybees have five eyes, 3 small ones on top of the head and two big ones in front.  They also have hair on their eyes!', 'Honeybees will usually travel approximately 3 miles from their hive.', 'A populous colony may contain 40,000 to 60,000 bees during the late spring or early summer.'];
 
-let count = 0;
+let count = Math.floor(Math.random() * 3) + 1  ;
 
 $(document).ready(function(){
 
@@ -39,7 +39,7 @@ $(document).ready(function(){
       if(count === 4){
         count = 0;
       }
-      $('#posts').append(`<div class='card bg-light mb-3'><div class='card-body'><p>Comment: ${comment.body}<br>${comment.link_permalink}<br>replied with: ${BEEFACTS[count]}</p></div></div>`);
+      $('#posts').append(`<div class='card bg-light mb-3'><div class='card-body'><p>Comment: ${comment.body}<br><br>${comment.link_permalink}<br><br>replied with: ${BEEFACTS[count]}</p></div></div>`);
     }
   });
 });
