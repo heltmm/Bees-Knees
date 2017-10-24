@@ -38,11 +38,12 @@ $(document).ready(function(){
 
     if(noPunBody.includes(' bee ')){
       comment.reply(`${BEEFACTS[count]}`);
+      $('#posts').append(`<div class='card bg-light mb-3'><div class='card-body'><p>Comment: ${comment.body}<br><br>${comment.link_permalink}<br><br>replied with: ${BEEFACTS[count]}</p></div></div>`);
       count ++;
       if(count === BEEFACTS.length){
         count = 0;
       }
-      $('#posts').append(`<div class='card bg-light mb-3'><div class='card-body'><p>Comment: ${comment.body}<br><br>${comment.link_permalink}<br><br>replied with: ${BEEFACTS[count]}</p></div></div>`);
+
     }
   });
 });
